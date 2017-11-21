@@ -2,7 +2,13 @@
   "name": "asset-size-reporter",
   "version": "0.0.0",
   "description": "Generic asset size comparison and reporting tool",
-  "repository": "simplabs/asset-size-reporter",
+  "license": "MIT",
   "author": "Tobias Bieniek <tobias.bieniek@gmail.com>",
-  "license": "MIT"
+  "repository": "simplabs/asset-size-reporter",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1"
+  }
 }
