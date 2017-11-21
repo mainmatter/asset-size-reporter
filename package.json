@@ -8,6 +8,9 @@
   "scripts": {
     "test": "jest"
   },
+  "dependencies": {
+    "globby": "^7.1.1"
+  },
   "devDependencies": {
     "jest": "^21.2.1"
   }
