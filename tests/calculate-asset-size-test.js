@@ -4,18 +4,18 @@ const calculateAssetSize = require('../src/calculate-asset-size');
 const FIXTURE_PATH = path.join(__dirname, 'fixtures');
 
 describe('calculateAssetSize', () => {
-  test('resolves to object containing the file size', () => {
+  test('resolves to object containing the file size', async () => {
     let filepath = path.join(FIXTURE_PATH, 'default', 'dist', 'file-inside-dist.js');
 
-    return expect(calculateAssetSize(filepath)).resolves.toEqual({
+    expect(await calculateAssetSize(filepath)).toEqual({
       size: 1855,
     });
   });
 
-  test('supports a `gzip` option', () => {
+  test('supports a `gzip` option', async () => {
     let filepath = path.join(FIXTURE_PATH, 'default', 'dist', 'file-inside-dist.js');
 
-    return expect(calculateAssetSize(filepath, { gzip: true })).resolves.toEqual({
+    expect(await calculateAssetSize(filepath, { gzip: true })).toEqual({
       size: 1855,
       gzip: 377,
     });
