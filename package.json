@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "fs-extra": "^4.0.2",
-    "globby": "^7.1.1"
+    "globby": "^7.1.1",
+    "gzip-size": "^4.0.0"
   },
   "devDependencies": {
     "jest": "^21.2.1"
