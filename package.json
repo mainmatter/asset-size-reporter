@@ -1,0 +1,8 @@
+{
+  "name": "asset-size-reporter",
+  "version": "0.0.0",
+  "description": "Generic asset size comparison and reporting tool",
+  "repository": "simplabs/asset-size-reporter",
+  "author": "Tobias Bieniek <tobias.bieniek@gmail.com>",
+  "license": "MIT"
+}
