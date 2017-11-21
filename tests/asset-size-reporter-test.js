@@ -34,8 +34,8 @@ describe('asset-size-reporter', () => {
     let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
 
     expect(fakeConsole.messages).toEqual([
-      `${path1}: 1855 / gzip 377`,
-      `${path2}: 3075 / gzip 636`,
+      `${path1}: 1.85 kB / gzip 377 B`,
+      `${path2}: 3.08 kB / gzip 636 B`,
     ]);
   });
 
