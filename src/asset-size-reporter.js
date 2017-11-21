@@ -4,7 +4,11 @@ const prettyBytes = require('pretty-bytes');
 
 const calculateAssetSize = require('./calculate-asset-size');
 
-module.exports = async ({ paths, json, console, cwd }) => {
+module.exports = async ({ paths, json, gzip, console, cwd }) => {
+  if (gzip === undefined) {
+    gzip = true;
+  }
+
   if (json) {
     let actualPaths = await globby(paths, { cwd });
 
@@ -12,7 +16,7 @@ module.exports = async ({ paths, json, console, cwd }) => {
 
     for (let _path of actualPaths) {
       let resolvedPath = path.resolve(cwd, _path);
-      result[_path] = await calculateAssetSize(resolvedPath, { gzip: true });
+      result[_path] = await calculateAssetSize(resolvedPath, { gzip });
     }
 
     console.log(JSON.stringify(result, null, 2));
@@ -22,7 +26,7 @@ module.exports = async ({ paths, json, console, cwd }) => {
 
     for (let _path of actualPaths) {
       let resolvedPath = path.resolve(cwd, _path);
-      let size = await calculateAssetSize(resolvedPath, { gzip: true });
+      let size = await calculateAssetSize(resolvedPath, { gzip });
 
       let output = `${_path}: ${prettyBytes(size.size)}`;
       if ('gzip' in size) {
