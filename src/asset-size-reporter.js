@@ -15,5 +15,20 @@ module.exports = async ({ paths, json, console, cwd }) => {
     }
 
     console.log(JSON.stringify(result, null, 2));
+
+  } else {
+    let actualPaths = await globby(paths, { cwd });
+
+    for (let _path of actualPaths) {
+      let resolvedPath = path.resolve(cwd, _path);
+      let size = await calculateAssetSize(resolvedPath, { gzip: true });
+
+      let output = `${_path}: ${size.size}`;
+      if ('gzip' in size) {
+        output += ` / gzip ${size.gzip}`;
+      }
+
+      console.log(output);
+    }
   }
 };

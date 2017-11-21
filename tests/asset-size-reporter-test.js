@@ -18,6 +18,27 @@ class FakeConsole {
 }
 
 describe('asset-size-reporter', () => {
+  test('reports results as text by default', async () => {
+    let cwd = path.join(FIXTURE_PATH, 'default');
+
+    let paths = [
+      'dist/**/*.js',
+      '!dist/ignored-*.js',
+    ];
+
+    let fakeConsole = new FakeConsole();
+
+    await report({ paths, cwd, console: fakeConsole });
+
+    let path1 = path.join('dist', 'file-inside-dist.js');
+    let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
+
+    expect(fakeConsole.messages).toEqual([
+      `${path1}: 1855 / gzip 377`,
+      `${path2}: 3075 / gzip 636`,
+    ]);
+  });
+
   test('reports results as JSON if `json` option is used', async () => {
     let cwd = path.join(FIXTURE_PATH, 'default');
 
@@ -43,6 +64,5 @@ describe('asset-size-reporter', () => {
         gzip: 636,
       },
     });
-
   });
 });
