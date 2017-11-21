@@ -20,4 +20,13 @@ describe('calculateAssetSize', () => {
       gzip: 377,
     });
   });
+
+  test('supports a numeric `gzip` option', async () => {
+    let filepath = path.join(FIXTURE_PATH, 'default', 'dist', 'file-inside-dist.js');
+
+    expect(await calculateAssetSize(filepath, { gzip: 1 })).toEqual({
+      size: 1855,
+      gzip: 395,
+    });
+  });
 });

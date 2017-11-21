@@ -21,7 +21,15 @@ async function calculateCompressedAssetSizes(path, options = {}) {
   }
 
   let data = await fs.readFile(path);
-  let size = await gzipSize(data);
+  let size = await calculateGzipSize(data, options.gzip);
 
   return { gzip: size };
+}
+
+async function calculateGzipSize(data, level) {
+  if (level === true) {
+    level = 9;
+  }
+
+  return await gzipSize(data, null, { level });
 }
