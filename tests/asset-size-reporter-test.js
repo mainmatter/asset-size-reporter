@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const report = require('../src/asset-size-reporter');
 
@@ -38,7 +40,7 @@ describe('asset-size-reporter', () => {
         `${path1}: 1.85 kB / gzip 377 B`,
         `${path2}: 3.08 kB / gzip 636 B`,
         ``,
-        `Total: 4.93 kB / gzip 1.01 kB`
+        `Total: 4.93 kB / gzip 1.01 kB`,
       ]);
     });
 
@@ -61,7 +63,7 @@ describe('asset-size-reporter', () => {
         `${path1}: 1.85 kB`,
         `${path2}: 3.08 kB`,
         ``,
-        `Total: 4.93 kB`
+        `Total: 4.93 kB`,
       ]);
     });
   });
@@ -121,7 +123,6 @@ describe('asset-size-reporter', () => {
 
       let path1 = path.join('dist', 'file-inside-dist.js');
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
-      let path3 = path.join('dist', 'text-file-inside-dist.js');
       let path4 = path.join('dist', 'deleted-file-inside-dist.js');
 
       let compare = {

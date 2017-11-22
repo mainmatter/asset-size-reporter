@@ -1,3 +1,5 @@
+'use strict';
+
 const prettyBytes = require('pretty-bytes');
 
 module.exports = (num, { signed } = {}) => {

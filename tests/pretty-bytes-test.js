@@ -1,3 +1,5 @@
+'use strict';
+
 const prettyBytes = require('../src/pretty-bytes');
 
 test('works normally', () => {

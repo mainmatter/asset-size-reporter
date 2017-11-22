@@ -1,3 +1,5 @@
+'use strict';
+
 const rawPathSize = require('./raw-path-size');
 const gzipPathSize = require('./gzip-path-size');
 const brotliPathSize = require('./brotli-path-size');

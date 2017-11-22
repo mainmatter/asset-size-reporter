@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (before, after) => {
   let paths = Object.keys(before)
     .concat(Object.keys(after))

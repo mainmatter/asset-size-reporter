@@ -1,3 +1,5 @@
+'use strict';
+
 const brotliPathSize = require('../src/brotli-path-size');
 
 const BROTLI_AVAILABLE = require('./brotli-available');
@@ -30,6 +32,6 @@ tests.forEach(([fixturePath, expectedSize, level]) => {
     await brotliPathSize(`${FIXTURE_PATH}/does-not-exist.txt`);
     expect(true).toBeFalsy();
   } catch (e) {
-    expect(() => { throw e }).toThrowError('No such file or directory');
+    expect(() => { throw e; }).toThrowError('No such file or directory');
   }
 });

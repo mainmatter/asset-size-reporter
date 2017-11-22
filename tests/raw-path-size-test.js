@@ -1,3 +1,5 @@
+'use strict';
+
 const rawPathSize = require('../src/raw-path-size');
 
 const FIXTURE_PATH = `${__dirname}/fixtures`;
@@ -19,6 +21,6 @@ test('rejects for missing files', async () => {
     await rawPathSize(`${FIXTURE_PATH}/does-not-exist.txt`);
     expect(true).toBeFalsy();
   } catch (e) {
-    expect(() => { throw e }).toThrowError('no such file or directory');
+    expect(() => { throw e; }).toThrowError('no such file or directory');
   }
 });

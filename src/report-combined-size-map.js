@@ -1,3 +1,5 @@
+'use strict';
+
 const prettyBytes = require('./pretty-bytes');
 
 module.exports = (combined, { console }) => {
@@ -31,9 +33,9 @@ module.exports = (combined, { console }) => {
         output += ` / gzip ${previousGzip} -> ${currentGzip}`;
       }
 
-      output += ` (${prettyBytes(after.raw - before.raw, {signed: true})}`;
+      output += ` (${prettyBytes(after.raw - before.raw, { signed: true })}`;
       if (before.gzip !== null && after.gzip !== null) {
-        output += ` / gzip ${prettyBytes(after.gzip - before.gzip, {signed: true})}`;
+        output += ` / gzip ${prettyBytes(after.gzip - before.gzip, { signed: true })}`;
       }
       output += `)`;
     }

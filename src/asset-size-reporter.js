@@ -1,3 +1,5 @@
+'use strict';
+
 const createSizeMap = require('./create-size-map');
 const reportSizeMap = require('./report-size-map');
 const combineSizeMaps = require('./combine-size-maps');

@@ -1,3 +1,5 @@
+'use strict';
+
 const sumSizes = require('../src/sum-sizes');
 
 test('sums up sizes correctly', () => {
