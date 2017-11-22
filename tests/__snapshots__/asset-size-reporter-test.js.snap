@@ -6,14 +6,14 @@ dist/file-inside-dist.js: 1.27 kB -> 1.85 kB (+580 B) / gzip 144 B -> 377 B (+23
 dist/foo/nested-file-inside-dist.js: 32.1 kB -> 3.08 kB (-29 kB) / gzip 7.64 kB -> 636 B (-7 kB)
 dist/text-file-in-dist.txt: 3.94 kB / gzip 636 B (new file)
 
-Total: 8.87 kB / gzip 1.65 kB"
+Total: 37.6 kB -> 8.87 kB (-28.7 kB) / gzip 7.82 kB -> 1.65 kB (-6.17 kB)"
 `;
 
 exports[`asset-size-reporter compare reporter supports \`gzip: false\` 1`] = `
 "dist/file-inside-dist.js: 1.27 kB -> 1.85 kB (+580 B)
 dist/foo/nested-file-inside-dist.js: 32.1 kB -> 3.08 kB (-29 kB)
 
-Total: 4.93 kB"
+Total: 33.4 kB -> 4.93 kB (-28.4 kB)"
 `;
 
 exports[`asset-size-reporter text reporter reports results as text by default 1`] = `
