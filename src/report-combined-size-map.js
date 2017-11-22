@@ -42,9 +42,9 @@ function formatLine(path, before, after) {
 
   if (deleted) {
     // file was deleted
-    output += `${prettyBytes(before.raw)}`;
+    output += formatDiff(before.raw);
     if (before.gzip !== null) {
-      output += ` / gzip ${prettyBytes(before.gzip)}`;
+      output += ` / gzip ${formatDiff(before.gzip)}`;
     }
     output += ` (deleted file)`;
 
@@ -52,9 +52,9 @@ function formatLine(path, before, after) {
 
   } else if (added) {
     // file was added
-    output += prettyBytes(after.raw);
+    output += formatDiff(after.raw);
     if (after.gzip !== null) {
-      output += ` / gzip ${prettyBytes(after.gzip)}`;
+      output += ` / gzip ${formatDiff(after.gzip)}`;
     }
     output += ` (new file)`;
 
@@ -62,18 +62,9 @@ function formatLine(path, before, after) {
 
   } else {
     // file was modified
-    output += prettyBytes(before.raw);
-    if (before.raw !== after.raw) {
-      output += ` -> ${prettyBytes(after.raw)} (${prettyBytes(after.raw - before.raw, { signed: true })})`;
-    }
-
+    output += formatDiff(before.raw, after.raw);
     if (before.gzip !== null && after.gzip !== null) {
-      let previousGzip = before.gzip !== null ? prettyBytes(before.gzip) : '?';
-      let currentGzip = after.gzip !== null ? prettyBytes(after.gzip) : '?';
-      output += ` / gzip ${previousGzip}`;
-      if (before.gzip !== after.gzip) {
-        output += ` -> ${currentGzip} (${prettyBytes(after.gzip - before.gzip, { signed: true })})`;
-      }
+      output += ` / gzip ${formatDiff(before.gzip, after.gzip)}`;
     }
 
     if (before.raw > after.raw) {
@@ -90,4 +81,12 @@ function formatPathPrefix(path, { deleted } = {}) {
   let dir = dirname(path);
   let base = basename(path);
   return chalk`${deleted ? '[' : ''}{dim ${dir}/}${base}${deleted ? ']' : ''}{dim :} `;
+}
+
+function formatDiff(before, after = before) {
+  if (before === after) {
+    return prettyBytes(after);
+  }
+
+  return `${prettyBytes(before)} -> ${prettyBytes(after)} (${prettyBytes(after - before, { signed: true })})`;
 }
