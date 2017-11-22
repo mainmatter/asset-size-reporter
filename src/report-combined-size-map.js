@@ -7,9 +7,9 @@ module.exports = (combined, { console }) => {
   let sumAfter = { raw: 0, gzip: null, brotli: null };
   let sumBefore = { raw: 0, gzip: null, brotli: null };
 
-  for (let _path of Object.keys(combined)) {
-    let after = combined[_path].after;
-    let before = combined[_path].before;
+  for (let path of Object.keys(combined)) {
+    let after = combined[path].after;
+    let before = combined[path].before;
 
     if (after !== undefined) {
       sumAfter = sumSizes(sumAfter, after);
@@ -19,7 +19,7 @@ module.exports = (combined, { console }) => {
       sumBefore = sumSizes(sumBefore, before);
     }
 
-    let output = `${_path}: `;
+    let output = formatPathPrefix(path);
     if (after === undefined) {
       // file was deleted
       output += `[${prettyBytes(before.raw)}`;
@@ -63,3 +63,7 @@ module.exports = (combined, { console }) => {
   console.log();
   console.log(output);
 };
+
+function formatPathPrefix(path) {
+  return `${path}: `;
+}
