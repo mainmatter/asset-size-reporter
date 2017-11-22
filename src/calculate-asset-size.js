@@ -31,5 +31,5 @@ async function calculateGzipSize(data, level) {
     level = 9;
   }
 
-  return await gzipSize(data, null, { level });
+  return await gzipSize(data, { level });
 }
