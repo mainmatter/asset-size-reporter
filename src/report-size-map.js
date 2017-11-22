@@ -1,29 +1,9 @@
 'use strict';
 
-const prettyBytes = require('pretty-bytes');
-
-const sumSizes = require('./sum-sizes');
+const combineSizeMaps = require('./combine-size-maps');
+const reportCombinedSizeMap = require('./report-combined-size-map');
 
 module.exports = (sizeMap, { console }) => {
-  let sum = { raw: 0, gzip: null, brotli: null };
-
-  for (let path of Object.keys(sizeMap)) {
-    let fileSizes = sizeMap[path];
-
-    sum = sumSizes(sum, fileSizes);
-
-    let output = `${path}: ${prettyBytes(fileSizes.raw)}`;
-    if (fileSizes.gzip !== null) {
-      output += ` / gzip ${prettyBytes(fileSizes.gzip)}`;
-    }
-
-    console.log(output);
-  }
-
-  let output = `Total: ${prettyBytes(sum.raw)}`;
-  if (sum.gzip !== null) {
-    output += ` / gzip ${prettyBytes(sum.gzip)}`;
-  }
-  console.log();
-  console.log(output);
+  let combined = combineSizeMaps(sizeMap, sizeMap);
+  reportCombinedSizeMap(combined, { console });
 };
