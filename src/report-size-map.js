@@ -2,11 +2,11 @@ const prettyBytes = require('pretty-bytes');
 
 const sumSizes = require('./sum-sizes');
 
-module.exports = (sizes, { console }) => {
+module.exports = (sizeMap, { console }) => {
   let sum = { raw: 0, gzip: null, brotli: null };
 
-  for (let path of Object.keys(sizes)) {
-    let fileSizes = sizes[path];
+  for (let path of Object.keys(sizeMap)) {
+    let fileSizes = sizeMap[path];
 
     sum = sumSizes(sum, fileSizes);
 
