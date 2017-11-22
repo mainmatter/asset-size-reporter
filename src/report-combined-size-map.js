@@ -8,11 +8,11 @@ module.exports = (combined, { console }) => {
     let output = `${_path}: `;
     if (after === undefined) {
       // file was deleted
-      output += prettyBytes(before.raw);
+      output += `[${prettyBytes(before.raw)}`;
       if (before.gzip !== null) {
         output += ` / gzip ${prettyBytes(before.gzip)}`;
       }
-      output += ` (deleted file)`;
+      output += `] (deleted file)`;
 
     } else if (before === undefined) {
       // file was added
