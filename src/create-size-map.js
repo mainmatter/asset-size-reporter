@@ -3,7 +3,7 @@ const globby = require('globby');
 
 const pathSizes = require('./path-sizes');
 
-module.exports = async (patterns, { cwd, gzip, brotli }) => {
+module.exports = async (patterns, { cwd, gzip, brotli } = {}) => {
   let paths = await globby(patterns, { cwd });
 
   let result = {};
