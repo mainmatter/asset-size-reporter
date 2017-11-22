@@ -1,11 +1,23 @@
 'use strict';
 
 const prettyBytes = require('./pretty-bytes');
+const sumSizes = require('./sum-sizes');
 
 module.exports = (combined, { console }) => {
+  let sumAfter = { raw: 0, gzip: null, brotli: null };
+  let sumBefore = { raw: 0, gzip: null, brotli: null };
+
   for (let _path of Object.keys(combined)) {
     let after = combined[_path].after;
     let before = combined[_path].before;
+
+    if (after !== undefined) {
+      sumAfter = sumSizes(sumAfter, after);
+    }
+
+    if (before !== undefined) {
+      sumBefore = sumSizes(sumBefore, before);
+    }
 
     let output = `${_path}: `;
     if (after === undefined) {
@@ -43,4 +55,11 @@ module.exports = (combined, { console }) => {
 
     console.log(output);
   }
+
+  let output = `Total: ${prettyBytes(sumAfter.raw)}`;
+  if (sumAfter.gzip !== null) {
+    output += ` / gzip ${prettyBytes(sumAfter.gzip)}`;
+  }
+  console.log();
+  console.log(output);
 };
