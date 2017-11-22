@@ -44,7 +44,7 @@ function formatLine(path, before, after) {
     // file was deleted
     output += formatDiff(before.raw);
     if (before.gzip !== null) {
-      output += ` / gzip ${formatDiff(before.gzip)}`;
+      output += chalk` {dim /} ${formatDiff(before.gzip)} {dim gzip}`;
     }
     output += ` (deleted file)`;
 
@@ -54,7 +54,7 @@ function formatLine(path, before, after) {
     // file was added
     output += formatDiff(after.raw);
     if (after.gzip !== null) {
-      output += ` / gzip ${formatDiff(after.gzip)}`;
+      output += chalk` {dim /} ${formatDiff(after.gzip)} {dim gzip}`;
     }
     output += ` (new file)`;
 
@@ -64,7 +64,7 @@ function formatLine(path, before, after) {
     // file was modified
     output += formatDiff(before.raw, after.raw);
     if (before.gzip !== null && after.gzip !== null) {
-      output += ` / gzip ${formatDiff(before.gzip, after.gzip)}`;
+      output += chalk` {dim /} ${formatDiff(before.gzip, after.gzip)} {dim gzip}`;
     }
 
     if (before.raw > after.raw) {
