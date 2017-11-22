@@ -2,7 +2,7 @@ const path = require('path');
 const globby = require('globby');
 const prettyBytes = require('pretty-bytes');
 
-const calculateAssetSize = require('./calculate-asset-size');
+const pathSizes = require('./path-sizes');
 
 module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
   if (gzip === undefined) {
@@ -16,7 +16,7 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
 
     for (let _path of actualPaths) {
       let resolvedPath = path.resolve(cwd, _path);
-      result[_path] = await calculateAssetSize(resolvedPath, { gzip });
+      result[_path] = await pathSizes(resolvedPath, { gzip });
     }
 
     console.log(JSON.stringify(result, null, 2));
@@ -32,43 +32,43 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
       .sort();
 
     for (let _path of allPaths) {
-      let size;
+      let sizes;
       if (actualPaths.indexOf(_path) !== -1) {
         let resolvedPath = path.resolve(cwd, _path);
-        size = await calculateAssetSize(resolvedPath, {gzip});
+        sizes = await pathSizes(resolvedPath, {gzip});
       }
 
       let previous = compare[_path];
 
       let output = `${_path}: `;
-      if (size === undefined) {
+      if (sizes === undefined) {
         // file was deleted
-        output += prettyBytes(previous.size);
-        if ('gzip' in previous) {
+        output += prettyBytes(previous.raw);
+        if (previous.gzip !== null) {
           output += ` / gzip ${prettyBytes(previous.gzip)}`;
         }
         output += ` (deleted file)`;
 
       } else if (previous === undefined) {
         // file was added
-        output += prettyBytes(size.size);
-        if ('gzip' in size) {
-          output += ` / gzip ${prettyBytes(size.gzip)}`;
+        output += prettyBytes(sizes.raw);
+        if (sizes.gzip !== null) {
+          output += ` / gzip ${prettyBytes(sizes.gzip)}`;
         }
         output += ` (new file)`;
 
       } else {
         // file was modified
-        output += `${prettyBytes(previous.size)} -> ${prettyBytes(size.size)}`;
-        if ('gzip' in previous || 'gzip' in size) {
-          let previousGzip = 'gzip' in previous ? prettyBytes(previous.gzip) : '?';
-          let currentGzip = 'gzip' in size ? prettyBytes(size.gzip) : '?';
+        output += `${prettyBytes(previous.raw)} -> ${prettyBytes(sizes.raw)}`;
+        if (previous.gzip !== null || sizes.gzip !== null) {
+          let previousGzip = previous.gzip !== null ? prettyBytes(previous.gzip) : '?';
+          let currentGzip = sizes.gzip !== null ? prettyBytes(sizes.gzip) : '?';
           output += ` / gzip ${previousGzip} -> ${currentGzip}`;
         }
 
-        output += ` (${prettyBytesDiff(previous.size, size.size)}`;
-        if ('gzip' in previous && 'gzip' in size) {
-          output += ` / gzip ${prettyBytesDiff(previous.gzip, size.gzip)}`;
+        output += ` (${prettyBytesDiff(previous.raw, sizes.raw)}`;
+        if (previous.gzip !== null && sizes.gzip !== null) {
+          output += ` / gzip ${prettyBytesDiff(previous.gzip, sizes.gzip)}`;
         }
         output += `)`;
       }
@@ -80,11 +80,11 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
 
     for (let _path of actualPaths) {
       let resolvedPath = path.resolve(cwd, _path);
-      let size = await calculateAssetSize(resolvedPath, { gzip });
+      let sizes = await pathSizes(resolvedPath, { gzip });
 
-      let output = `${_path}: ${prettyBytes(size.size)}`;
-      if ('gzip' in size) {
-        output += ` / gzip ${prettyBytes(size.gzip)}`;
+      let output = `${_path}: ${prettyBytes(sizes.raw)}`;
+      if (sizes.gzip !== null) {
+        output += ` / gzip ${prettyBytes(sizes.gzip)}`;
       }
 
       console.log(output);

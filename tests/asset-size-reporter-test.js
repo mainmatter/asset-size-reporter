@@ -79,8 +79,8 @@ describe('asset-size-reporter', () => {
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
 
       expect(JSON.parse(fakeConsole.output)).toEqual({
-        [path1]: { size: 1855, gzip: 377 },
-        [path2]: { size: 3075, gzip: 636 },
+        [path1]: { raw: 1855, gzip: 377, brotli: null },
+        [path2]: { raw: 3075, gzip: 636, brotli: null },
       });
     });
 
@@ -100,8 +100,8 @@ describe('asset-size-reporter', () => {
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
 
       expect(JSON.parse(fakeConsole.output)).toEqual({
-        [path1]: { size: 1855 },
-        [path2]: { size: 3075 },
+        [path1]: { raw: 1855, gzip: null, brotli: null },
+        [path2]: { raw: 3075, gzip: null, brotli: null },
       });
     });
   });
@@ -121,9 +121,9 @@ describe('asset-size-reporter', () => {
       let path4 = path.join('dist', 'deleted-file-inside-dist.js');
 
       let compare = {
-        [path1]: { size: 1275, gzip: 144 },
-        [path2]: { size: 32075, gzip: 7636 },
-        [path4]: { size: 4242, gzip: 42 },
+        [path1]: { raw: 1275, gzip: 144, brotli: null },
+        [path2]: { raw: 32075, gzip: 7636, brotli: null },
+        [path4]: { raw: 4242, gzip: 42, brotli: null },
       };
 
       let fakeConsole = new FakeConsole();
@@ -145,8 +145,8 @@ describe('asset-size-reporter', () => {
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
 
       let compare = {
-        [path1]: { size: 1275 },
-        [path2]: { size: 32075 },
+        [path1]: { raw: 1275, gzip: null, brotli: null },
+        [path2]: { raw: 32075, gzip: null, brotli: null },
       };
 
       let fakeConsole = new FakeConsole();
