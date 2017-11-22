@@ -4,6 +4,8 @@
   "description": "Generic asset size comparison and reporting tool",
   "license": "MIT",
   "author": "Tobias Bieniek <tobias.bieniek@gmail.com>",
+  "main": "src/asset-size-reporter.js",
+  "bin": "./cli.js",
   "repository": "simplabs/asset-size-reporter",
   "scripts": {
     "test": "jest --projects jest.config.js jest.lint.config.js"
@@ -13,6 +15,7 @@
     "fs-extra": "^4.0.2",
     "globby": "^7.1.1",
     "gzip-size": "^4.1.0",
+    "meow": "^3.7.0",
     "passthrough-counter": "^1.0.0",
     "pretty-bytes": "^4.0.2"
   },
