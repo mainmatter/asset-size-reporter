@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`asset-size-reporter compare reporter reports results as text by default 1`] = `
-"dist/deleted-file-inside-dist.js: [4.24 kB / gzip 42 B] (deleted file)
+"[dist/deleted-file-inside-dist.js]: 4.24 kB / gzip 42 B (deleted file)
 dist/file-inside-dist.js: 1.27 kB -> 1.85 kB (+580 B) / gzip 144 B -> 377 B (+233 B)
 dist/foo/nested-file-inside-dist.js: 32.1 kB -> 3.08 kB (-29 kB) / gzip 7.64 kB -> 636 B (-7 kB)
 dist/text-file-in-dist.txt: 3.94 kB / gzip 636 B (new file)
@@ -12,6 +12,20 @@ Total: 8.87 kB / gzip 1.65 kB"
 exports[`asset-size-reporter compare reporter supports \`gzip: false\` 1`] = `
 "dist/file-inside-dist.js: 1.27 kB -> 1.85 kB (+580 B)
 dist/foo/nested-file-inside-dist.js: 32.1 kB -> 3.08 kB (-29 kB)
+
+Total: 4.93 kB"
+`;
+
+exports[`asset-size-reporter text reporter reports results as text by default 1`] = `
+"dist/file-inside-dist.js: 1.85 kB / gzip 377 B
+dist/foo/nested-file-inside-dist.js: 3.08 kB / gzip 636 B
+
+Total: 4.93 kB / gzip 1.01 kB"
+`;
+
+exports[`asset-size-reporter text reporter supports \`gzip: false\` 1`] = `
+"dist/file-inside-dist.js: 1.85 kB
+dist/foo/nested-file-inside-dist.js: 3.08 kB
 
 Total: 4.93 kB"
 `;

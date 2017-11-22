@@ -1,6 +1,8 @@
 'use strict';
 
 const path = require('path');
+const stripAnsi = require('strip-ansi');
+
 const report = require('../src/asset-size-reporter');
 
 const FIXTURE_PATH = `${__dirname}/fixtures`;
@@ -33,15 +35,7 @@ describe('asset-size-reporter', () => {
 
       await report({ patterns, cwd, console: fakeConsole });
 
-      let path1 = path.join('dist', 'file-inside-dist.js');
-      let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
-
-      expect(fakeConsole.messages).toEqual([
-        `${path1}: 1.85 kB / gzip 377 B`,
-        `${path2}: 3.08 kB / gzip 636 B`,
-        ``,
-        `Total: 4.93 kB / gzip 1.01 kB`,
-      ]);
+      expect(stripAnsi(fakeConsole.output)).toMatchSnapshot();
     });
 
     test('supports `gzip: false`', async () => {
@@ -56,15 +50,7 @@ describe('asset-size-reporter', () => {
 
       await report({ patterns, cwd, gzip: false, console: fakeConsole });
 
-      let path1 = path.join('dist', 'file-inside-dist.js');
-      let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
-
-      expect(fakeConsole.messages).toEqual([
-        `${path1}: 1.85 kB`,
-        `${path2}: 3.08 kB`,
-        ``,
-        `Total: 4.93 kB`,
-      ]);
+      expect(stripAnsi(fakeConsole.output)).toMatchSnapshot();
     });
   });
 
@@ -135,7 +121,7 @@ describe('asset-size-reporter', () => {
 
       await report({ patterns, compare, cwd, console: fakeConsole });
 
-      expect(fakeConsole.output).toMatchSnapshot();
+      expect(stripAnsi(fakeConsole.output)).toMatchSnapshot();
     });
 
     test('supports `gzip: false`', async () => {
@@ -158,7 +144,7 @@ describe('asset-size-reporter', () => {
 
       await report({ patterns, compare, gzip: false, cwd, console: fakeConsole });
 
-      expect(fakeConsole.output).toMatchSnapshot();
+      expect(stripAnsi(fakeConsole.output)).toMatchSnapshot();
     });
   });
 });
