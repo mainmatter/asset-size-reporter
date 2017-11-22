@@ -105,4 +105,55 @@ describe('asset-size-reporter', () => {
       });
     });
   });
+
+  describe('compare reporter', () => {
+    test('reports results as text by default', async () => {
+      let cwd = path.join(FIXTURE_PATH, 'default');
+
+      let paths = [
+        'dist/**/*.{js,txt}',
+        '!dist/ignored-*.js',
+      ];
+
+      let path1 = path.join('dist', 'file-inside-dist.js');
+      let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
+      let path3 = path.join('dist', 'text-file-inside-dist.js');
+      let path4 = path.join('dist', 'deleted-file-inside-dist.js');
+
+      let compare = {
+        [path1]: { size: 1275, gzip: 144 },
+        [path2]: { size: 32075, gzip: 7636 },
+        [path4]: { size: 4242, gzip: 42 },
+      };
+
+      let fakeConsole = new FakeConsole();
+
+      await report({ paths, compare, cwd, console: fakeConsole });
+
+      expect(fakeConsole.output).toMatchSnapshot();
+    });
+
+    test('supports `gzip: false`', async () => {
+      let cwd = path.join(FIXTURE_PATH, 'default');
+
+      let paths = [
+        'dist/**/*.js',
+        '!dist/ignored-*.js',
+      ];
+
+      let path1 = path.join('dist', 'file-inside-dist.js');
+      let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
+
+      let compare = {
+        [path1]: { size: 1275 },
+        [path2]: { size: 32075 },
+      };
+
+      let fakeConsole = new FakeConsole();
+
+      await report({ paths, compare, gzip: false, cwd, console: fakeConsole });
+
+      expect(fakeConsole.output).toMatchSnapshot();
+    });
+  });
 });
