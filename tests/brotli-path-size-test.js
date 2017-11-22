@@ -1,9 +1,8 @@
-const execa = require('execa');
 const brotliPathSize = require('../src/brotli-path-size');
 
-const FIXTURE_PATH = `${__dirname}/fixtures`;
+const BROTLI_AVAILABLE = require('./brotli-available');
 
-const BROTLI_AVAILABLE = isBrotliAvailable();
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 let tests = [
   ['default/dist/file-inside-dist.js', 357],
@@ -34,16 +33,3 @@ tests.forEach(([fixturePath, expectedSize, level]) => {
     expect(() => { throw e }).toThrowError('No such file or directory');
   }
 });
-
-function isBrotliAvailable() {
-  try {
-    return execa.sync('brotli', ['--version'], { preferLocal: false }).status === 0
-
-  } catch (e) {
-    if (e.code === 'ENOENT') {
-      return false
-    } else {
-      throw e;
-    }
-  }
-}

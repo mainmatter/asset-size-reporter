@@ -1,5 +1,7 @@
 const pathSizes = require('../src/path-sizes');
 
+const BROTLI_AVAILABLE = require('./brotli-available');
+
 const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 let tests = [
@@ -17,8 +19,9 @@ let tests = [
 
 tests.forEach(([options, expected]) => {
   let testName = JSON.stringify(options);
+  let skip = 'brotli' in options && !BROTLI_AVAILABLE;
 
-  test(testName, async () => {
+  (skip ? test.skip : test)(testName, async () => {
     expect(await pathSizes(`${FIXTURE_PATH}/default/dist/file-inside-dist.js`, options)).toEqual(expected);
   });
 });
