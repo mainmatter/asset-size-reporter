@@ -1,7 +1,6 @@
-const path = require('path');
 const pathSizes = require('../src/path-sizes');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 let tests = [
   [{}, { raw: 1855, gzip: null, brotli: null }],

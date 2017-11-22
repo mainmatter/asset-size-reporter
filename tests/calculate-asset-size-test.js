@@ -1,7 +1,7 @@
 const path = require('path');
 const calculateAssetSize = require('../src/calculate-asset-size');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 describe('calculateAssetSize', () => {
   test('resolves to object containing the file size', async () => {

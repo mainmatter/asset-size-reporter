@@ -1,7 +1,6 @@
-const path = require('path');
 const rawPathSize = require('../src/raw-path-size');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 let tests = [
   ['default/dist/file-inside-dist.js', 1855],

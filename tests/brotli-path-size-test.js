@@ -1,8 +1,7 @@
-const path = require('path');
 const execa = require('execa');
 const brotliPathSize = require('../src/brotli-path-size');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 const BROTLI_AVAILABLE = isBrotliAvailable();
 

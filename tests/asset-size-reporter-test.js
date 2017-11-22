@@ -1,7 +1,7 @@
 const path = require('path');
 const report = require('../src/asset-size-reporter');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 class FakeConsole {
   constructor() {

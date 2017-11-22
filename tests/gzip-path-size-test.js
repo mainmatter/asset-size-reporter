@@ -1,7 +1,6 @@
-const path = require('path');
 const gzipPathSize = require('../src/gzip-path-size');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 let tests = [
   ['default/dist/file-inside-dist.js', 377],

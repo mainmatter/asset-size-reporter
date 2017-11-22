@@ -1,7 +1,7 @@
 const path = require('path');
 const globby = require('globby');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 describe('globby', () => {
   test('finds and ignores files correctly', () => {

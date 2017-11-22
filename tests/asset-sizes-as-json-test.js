@@ -1,7 +1,7 @@
 const path = require('path');
 const assetSizesAsJSON = require('../src/asset-sizes-as-json');
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures');
+const FIXTURE_PATH = `${__dirname}/fixtures`;
 
 describe('assetSizesAsJSON', () => {
   test('resolves to JSON object with sizes for each path', async () => {
