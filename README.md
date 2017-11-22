@@ -21,10 +21,10 @@ Print asset sizes to the console:
 ```
 $ asset-size-reporter "dist/*.js"
 
-dist/bar.js: 13.6 kB / gzip 1.20 kB
-dist/foo.js: 42.3 kB / gzip 2.32 kB
+dist/bar.js: 13.6 kB / 1.20 kB gzip 
+dist/foo.js: 42.3 kB / 2.32 kB gzip 
 
-Total: 55.9 kB / gzip 3.52 kB
+Total: 55.9 kB / 3.52 kB gzip 
 ```
 
 Write asset size report to a JSON file:
@@ -38,11 +38,11 @@ Compare asset sizes to a previous reports:
 ```
 $ asset-size-reporter "dist/*.js" --compare=previous.json
 
-dist/bar.js: 13.6 kB -> 13.8 kB / gzip 1.20 kB -> 1.21 kB (+213 Byte / gzip +25 Byte)
-dist/baz.js: 11.2 kB / gzip 1.04 kB (new file)
-dist/foo.js: [42.3 kB / gzip 2.32 kB] (deleted file)
+dist/bar.js: 13.6 kB -> 13.8 kB (+213 Byte) / 1.20 kB -> 1.21 kB (+25 Byte) gzip 
+dist/baz.js: 11.2 kB / 1.04 kB gzip (new file) 
+[dist/foo.js]: 42.3 kB / 2.32 kB gzip (deleted file) 
 
-Total: 55.9 kB -> 25.0 kB / gzip 3.52 kB -> 2.25 kB (-30.9 kB / gzip -1.27 kB)
+Total: 55.9 kB -> 25.0 kB (-30.9 kB) / 3.52 kB -> 2.25 kB (-1.27 kB) gzip 
 ```
 
 
