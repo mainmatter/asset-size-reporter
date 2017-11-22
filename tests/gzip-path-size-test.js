@@ -13,7 +13,12 @@ let tests = [
 ];
 
 tests.forEach(([fixturePath, expectedSize, level]) => {
-  test(fixturePath, async () => {
+  let testName = fixturePath;
+  if (level !== undefined) {
+    testName += ` (level: ${level})`;
+  }
+
+  test(testName, async () => {
     expect(await gzipPathSize(`${FIXTURE_PATH}/${fixturePath}`, { level })).toEqual(expectedSize);
   });
 });
