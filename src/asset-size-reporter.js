@@ -10,35 +10,26 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
     gzip = true;
   }
 
+  let actualPaths = await globby(patterns, { cwd });
+
+  let result = {};
+
+  for (let _path of actualPaths) {
+    let resolvedPath = path.resolve(cwd, _path);
+    result[_path] = await pathSizes(resolvedPath, { gzip });
+  }
+
   if (json) {
-    let actualPaths = await globby(patterns, { cwd });
-
-    let result = {};
-
-    for (let _path of actualPaths) {
-      let resolvedPath = path.resolve(cwd, _path);
-      result[_path] = await pathSizes(resolvedPath, { gzip });
-    }
-
     console.log(JSON.stringify(result, null, 2));
 
   } else if (compare) {
-    let actualPaths = await globby(patterns, { cwd });
-
-    let previousPaths = Object.keys(compare);
-
-    let allPaths = actualPaths
-      .concat(previousPaths)
+    let allPaths = Object.keys(result)
+      .concat(Object.keys(compare))
       .filter((value, index, array) => array.indexOf(value) === index)
       .sort();
 
     for (let _path of allPaths) {
-      let sizes;
-      if (actualPaths.indexOf(_path) !== -1) {
-        let resolvedPath = path.resolve(cwd, _path);
-        sizes = await pathSizes(resolvedPath, {gzip});
-      }
-
+      let sizes = result[_path];
       let previous = compare[_path];
 
       let output = `${_path}: `;
@@ -77,13 +68,10 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
       console.log(output);
     }
   } else {
-    let actualPaths = await globby(patterns, { cwd });
-
     let sum = { raw: 0, gzip: null, brotli: null };
 
-    for (let _path of actualPaths) {
-      let resolvedPath = path.resolve(cwd, _path);
-      let sizes = await pathSizes(resolvedPath, { gzip });
+    for (let _path of Object.keys(result)) {
+      let sizes = result[_path];
 
       sum = sumSizes(sum, sizes);
 
