@@ -3,7 +3,7 @@ const globby = require('globby');
 const prettyBytes = require('pretty-bytes');
 
 const pathSizes = require('./path-sizes');
-const sumSizes = require('./sum-sizes');
+const reportSizes = require('./report-sizes');
 
 module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
   if (gzip === undefined) {
@@ -68,27 +68,7 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
       console.log(output);
     }
   } else {
-    let sum = { raw: 0, gzip: null, brotli: null };
-
-    for (let _path of Object.keys(result)) {
-      let sizes = result[_path];
-
-      sum = sumSizes(sum, sizes);
-
-      let output = `${_path}: ${prettyBytes(sizes.raw)}`;
-      if (sizes.gzip !== null) {
-        output += ` / gzip ${prettyBytes(sizes.gzip)}`;
-      }
-
-      console.log(output);
-    }
-
-    let output = `Total: ${prettyBytes(sum.raw)}`;
-    if (sum.gzip !== null) {
-      output += ` / gzip ${prettyBytes(sum.gzip)}`;
-    }
-    console.log();
-    console.log(output);
+    reportSizes(result, { console });
   }
 };
 
