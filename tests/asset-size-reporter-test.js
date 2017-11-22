@@ -113,7 +113,7 @@ describe('asset-size-reporter', () => {
 
       let compare = {
         [path1]: { raw: 1275, gzip: 144, brotli: null },
-        [path2]: { raw: 32075, gzip: 7636, brotli: null },
+        [path2]: { raw: 3075, gzip: 636, brotli: null },
         [path4]: { raw: 4242, gzip: 42, brotli: null },
       };
 
