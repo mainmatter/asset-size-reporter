@@ -4,6 +4,7 @@ const globby = require('globby');
 const prettyBytes = require('./pretty-bytes');
 const pathSizes = require('./path-sizes');
 const reportSizes = require('./report-sizes');
+const combineSizes = require('./combine-sizes');
 
 module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
   if (gzip === undefined) {
@@ -23,14 +24,11 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
     console.log(JSON.stringify(result, null, 2));
 
   } else if (compare) {
-    let allPaths = Object.keys(result)
-      .concat(Object.keys(compare))
-      .filter((value, index, array) => array.indexOf(value) === index)
-      .sort();
+    let combined = combineSizes(compare, result);
 
-    for (let _path of allPaths) {
-      let sizes = result[_path];
-      let previous = compare[_path];
+    for (let _path of Object.keys(combined)) {
+      let sizes = combined[_path].after;
+      let previous = combined[_path].before;
 
       let output = `${_path}: `;
       if (sizes === undefined) {
