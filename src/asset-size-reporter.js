@@ -1,7 +1,7 @@
 const path = require('path');
 const globby = require('globby');
-const prettyBytes = require('pretty-bytes');
 
+const prettyBytes = require('./pretty-bytes');
 const pathSizes = require('./path-sizes');
 const reportSizes = require('./report-sizes');
 
@@ -58,9 +58,9 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
           output += ` / gzip ${previousGzip} -> ${currentGzip}`;
         }
 
-        output += ` (${prettyBytesDiff(previous.raw, sizes.raw)}`;
+        output += ` (${prettyBytes(sizes.raw - previous.raw, { signed: true })}`;
         if (previous.gzip !== null && sizes.gzip !== null) {
-          output += ` / gzip ${prettyBytesDiff(previous.gzip, sizes.gzip)}`;
+          output += ` / gzip ${prettyBytes(sizes.gzip - previous.gzip, { signed: true })}`;
         }
         output += `)`;
       }
@@ -71,9 +71,3 @@ module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
     reportSizes(result, { console });
   }
 };
-
-function prettyBytesDiff(a, b) {
-  let delta = b - a;
-  let pretty = prettyBytes(delta);
-  return (delta < 0) ? pretty : `+${pretty}`;
-}
