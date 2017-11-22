@@ -55,12 +55,12 @@ the configuration.
 
 Possible configuration options are:
 
-- `paths` – `string[]` – An array of `glob` patterns that describe what files
+- `patterns` – `string[]` – An array of `glob` patterns that describe what files
   should be considered by the asset-size-reporter
 
   ```json
   {
-    "paths": [
+    "patterns": [
       "dist/*.css",
       "dist/*.js",
       "!dist/tests.js"

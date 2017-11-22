@@ -22,14 +22,14 @@ describe('asset-size-reporter', () => {
     test('reports results as text by default', async () => {
       let cwd = path.join(FIXTURE_PATH, 'default');
 
-      let paths = [
+      let patterns = [
         'dist/**/*.js',
         '!dist/ignored-*.js',
       ];
 
       let fakeConsole = new FakeConsole();
 
-      await report({ paths, cwd, console: fakeConsole });
+      await report({ patterns, cwd, console: fakeConsole });
 
       let path1 = path.join('dist', 'file-inside-dist.js');
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
@@ -43,14 +43,14 @@ describe('asset-size-reporter', () => {
     test('supports `gzip: false`', async () => {
       let cwd = path.join(FIXTURE_PATH, 'default');
 
-      let paths = [
+      let patterns = [
         'dist/**/*.js',
         '!dist/ignored-*.js',
       ];
 
       let fakeConsole = new FakeConsole();
 
-      await report({ paths, cwd, gzip: false, console: fakeConsole });
+      await report({ patterns, cwd, gzip: false, console: fakeConsole });
 
       let path1 = path.join('dist', 'file-inside-dist.js');
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
@@ -66,14 +66,14 @@ describe('asset-size-reporter', () => {
     test('reports results as JSON if `json` option is used', async () => {
       let cwd = path.join(FIXTURE_PATH, 'default');
 
-      let paths = [
+      let patterns = [
         'dist/**/*.js',
         '!dist/ignored-*.js',
       ];
 
       let fakeConsole = new FakeConsole();
 
-      await report({ paths, json: true, cwd, console: fakeConsole });
+      await report({ patterns, json: true, cwd, console: fakeConsole });
 
       let path1 = path.join('dist', 'file-inside-dist.js');
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
@@ -87,14 +87,14 @@ describe('asset-size-reporter', () => {
     test('supports `gzip: false`', async () => {
       let cwd = path.join(FIXTURE_PATH, 'default');
 
-      let paths = [
+      let patterns = [
         'dist/**/*.js',
         '!dist/ignored-*.js',
       ];
 
       let fakeConsole = new FakeConsole();
 
-      await report({ paths, json: true, gzip: false, cwd, console: fakeConsole });
+      await report({ patterns, json: true, gzip: false, cwd, console: fakeConsole });
 
       let path1 = path.join('dist', 'file-inside-dist.js');
       let path2 = path.join('dist', 'foo', 'nested-file-inside-dist.js');
@@ -110,7 +110,7 @@ describe('asset-size-reporter', () => {
     test('reports results as text by default', async () => {
       let cwd = path.join(FIXTURE_PATH, 'default');
 
-      let paths = [
+      let patterns = [
         'dist/**/*.{js,txt}',
         '!dist/ignored-*.js',
       ];
@@ -128,7 +128,7 @@ describe('asset-size-reporter', () => {
 
       let fakeConsole = new FakeConsole();
 
-      await report({ paths, compare, cwd, console: fakeConsole });
+      await report({ patterns, compare, cwd, console: fakeConsole });
 
       expect(fakeConsole.output).toMatchSnapshot();
     });
@@ -136,7 +136,7 @@ describe('asset-size-reporter', () => {
     test('supports `gzip: false`', async () => {
       let cwd = path.join(FIXTURE_PATH, 'default');
 
-      let paths = [
+      let patterns = [
         'dist/**/*.js',
         '!dist/ignored-*.js',
       ];
@@ -151,7 +151,7 @@ describe('asset-size-reporter', () => {
 
       let fakeConsole = new FakeConsole();
 
-      await report({ paths, compare, gzip: false, cwd, console: fakeConsole });
+      await report({ patterns, compare, gzip: false, cwd, console: fakeConsole });
 
       expect(fakeConsole.output).toMatchSnapshot();
     });

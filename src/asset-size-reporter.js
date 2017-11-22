@@ -4,13 +4,13 @@ const prettyBytes = require('pretty-bytes');
 
 const calculateAssetSize = require('./calculate-asset-size');
 
-module.exports = async ({ paths, json, compare, gzip, console, cwd }) => {
+module.exports = async ({ patterns, json, compare, gzip, console, cwd }) => {
   if (gzip === undefined) {
     gzip = true;
   }
 
   if (json) {
-    let actualPaths = await globby(paths, { cwd });
+    let actualPaths = await globby(patterns, { cwd });
 
     let result = {};
 
@@ -22,7 +22,7 @@ module.exports = async ({ paths, json, compare, gzip, console, cwd }) => {
     console.log(JSON.stringify(result, null, 2));
 
   } else if (compare) {
-    let actualPaths = await globby(paths, { cwd });
+    let actualPaths = await globby(patterns, { cwd });
 
     let previousPaths = Object.keys(compare);
 
@@ -76,7 +76,7 @@ module.exports = async ({ paths, json, compare, gzip, console, cwd }) => {
       console.log(output);
     }
   } else {
-    let actualPaths = await globby(paths, { cwd });
+    let actualPaths = await globby(patterns, { cwd });
 
     for (let _path of actualPaths) {
       let resolvedPath = path.resolve(cwd, _path);
