@@ -5,6 +5,9 @@ module.exports = async (path, { level } = {}) => {
   return new Promise((resolve, reject) => {
     let stream = fs.createReadStream(path);
     stream.on('error', reject);
-    stream.pipe(gzipSize.stream({ level })).on('gzip-size', resolve);
+
+    let gzipStream = stream.pipe(gzipSize.stream({ level }));
+    gzipStream.on('error', reject);
+    gzipStream.on('gzip-size', resolve);
   });
 };
