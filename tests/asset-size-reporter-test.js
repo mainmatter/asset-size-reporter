@@ -8,7 +8,7 @@ class FakeConsole {
     this.messages = [];
   }
 
-  log(message) {
+  log(message = '') {
     this.messages.push(message);
   }
 
@@ -37,6 +37,8 @@ describe('asset-size-reporter', () => {
       expect(fakeConsole.messages).toEqual([
         `${path1}: 1.85 kB / gzip 377 B`,
         `${path2}: 3.08 kB / gzip 636 B`,
+        ``,
+        `Total: 4.93 kB / gzip 1.01 kB`
       ]);
     });
 
@@ -58,6 +60,8 @@ describe('asset-size-reporter', () => {
       expect(fakeConsole.messages).toEqual([
         `${path1}: 1.85 kB`,
         `${path2}: 3.08 kB`,
+        ``,
+        `Total: 4.93 kB`
       ]);
     });
   });
