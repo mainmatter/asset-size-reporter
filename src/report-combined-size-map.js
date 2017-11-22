@@ -26,18 +26,19 @@ module.exports = (combined, { console }) => {
 
     } else {
       // file was modified
-      output += `${prettyBytes(before.raw)} -> ${prettyBytes(after.raw)}`;
-      if (before.gzip !== null || after.gzip !== null) {
-        let previousGzip = before.gzip !== null ? prettyBytes(before.gzip) : '?';
-        let currentGzip = after.gzip !== null ? prettyBytes(after.gzip) : '?';
-        output += ` / gzip ${previousGzip} -> ${currentGzip}`;
+      output += prettyBytes(before.raw);
+      if (before.raw !== after.raw) {
+        output += ` -> ${prettyBytes(after.raw)} (${prettyBytes(after.raw - before.raw, { signed: true })})`;
       }
 
-      output += ` (${prettyBytes(after.raw - before.raw, { signed: true })}`;
       if (before.gzip !== null && after.gzip !== null) {
-        output += ` / gzip ${prettyBytes(after.gzip - before.gzip, { signed: true })}`;
+        let previousGzip = before.gzip !== null ? prettyBytes(before.gzip) : '?';
+        let currentGzip = after.gzip !== null ? prettyBytes(after.gzip) : '?';
+        output += ` / gzip ${previousGzip}`;
+        if (before.gzip !== after.gzip) {
+          output += ` -> ${currentGzip} (${prettyBytes(after.gzip - before.gzip, { signed: true })})`;
+        }
       }
-      output += `)`;
     }
 
     console.log(output);
