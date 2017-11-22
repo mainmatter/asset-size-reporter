@@ -9,8 +9,12 @@ module.exports = async (path, { level } = {}) => {
 
     let stream = promise.stdout;
     stream.on('error', reject);
-    stream.pipe(counter).once('finish', () => promise
+    stream.pipe(counter).once('finish', () => {
+      stream.end();
+
+      promise
         .then(() => resolve(counter.length))
-        .catch(reject));
+        .catch(reject);
+    });
   });
 };
