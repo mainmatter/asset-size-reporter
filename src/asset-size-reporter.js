@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs-extra');
+
 const createSizeMap = require('./create-size-map');
 const reportSizeMap = require('./report-size-map');
 const combineSizeMaps = require('./combine-size-maps');
@@ -16,6 +18,10 @@ module.exports = async ({ patterns, json, compare, gzip, brotli, fingerprintPatt
     console.log(JSON.stringify(sizeMap, null, 2));
 
   } else if (compare) {
+    if (typeof compare === 'string') {
+      compare = fs.readJsonSync(compare);
+    }
+
     let combined = combineSizeMaps(compare, sizeMap);
     reportCombinedSizeMap(combined, { console });
 
