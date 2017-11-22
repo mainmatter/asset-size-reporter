@@ -85,8 +85,8 @@ function formatPathPrefix(path, { deleted } = {}) {
 
 function formatDiff(before, after = before) {
   if (before === after) {
-    return prettyBytes(after);
+    return chalk.bold(prettyBytes(after));
   }
 
-  return `${prettyBytes(before)} -> ${prettyBytes(after)} (${prettyBytes(after - before, { signed: true })})`;
+  return chalk`{dim ${prettyBytes(before)} ->} {bold ${prettyBytes(after)}} ({bold ${prettyBytes(after - before, { signed: true })}})`;
 }
