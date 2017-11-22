@@ -33,11 +33,14 @@ module.exports = (combined, { console }) => {
 };
 
 function formatLine(path, before, after) {
+  let added = before === undefined;
+  let deleted = after === undefined;
+
   let output = path === 'Total'
     ? chalk`{bold Total}{dim :} `
-    : formatPathPrefix(path, { deleted: after === undefined });
+    : formatPathPrefix(path, { deleted });
 
-  if (after === undefined) {
+  if (deleted) {
     // file was deleted
     output += `${prettyBytes(before.raw)}`;
     if (before.gzip !== null) {
@@ -47,7 +50,7 @@ function formatLine(path, before, after) {
 
     output = chalk.gray(output);
 
-  } else if (before === undefined) {
+  } else if (added) {
     // file was added
     output += prettyBytes(after.raw);
     if (after.gzip !== null) {
