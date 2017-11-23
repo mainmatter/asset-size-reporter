@@ -2,6 +2,14 @@
 asset-size-reporter
 ==============================================================================
 
+[![Latest NPM release][npm-badge]][npm-badge-url]
+[![TravisCI Build Status][travis-badge]][travis-badge-url]
+
+[npm-badge]: https://img.shields.io/npm/v/asset-size-reporter.svg
+[npm-badge-url]: https://www.npmjs.com/package/asset-size-reporter
+[travis-badge]: https://img.shields.io/travis/simplabs/asset-size-reporter/master.svg?label=TravisCI
+[travis-badge-url]: https://travis-ci.org/simplabs/asset-size-reporter
+
 Generic asset size comparison and reporting tool
 
 
