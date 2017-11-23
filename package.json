@@ -1,6 +1,6 @@
 {
   "name": "asset-size-reporter",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Generic asset size comparison and reporting tool",
   "license": "MIT",
   "author": "Tobias Bieniek <tobias.bieniek@gmail.com>",
