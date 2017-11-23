@@ -23,9 +23,11 @@ module.exports = async ({ patterns, json, compare, gzip, brotli, fingerprintPatt
     }
 
     let combined = combineSizeMaps(compare, sizeMap);
-    reportCombinedSizeMap(combined, { console });
+    return reportCombinedSizeMap(combined, { console });
 
   } else {
     reportSizeMap(sizeMap, { console });
   }
+
+  return { exitCode: 0 };
 };

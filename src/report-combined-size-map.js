@@ -30,6 +30,8 @@ module.exports = (combined, { console }) => {
   let output = formatLine('Total', sumBefore, sumAfter);
   console.log();
   console.log(output);
+
+  return { exitCode: sumAfter.raw > sumBefore.raw ? 1 : 0 };
 };
 
 function formatLine(path, before, after) {

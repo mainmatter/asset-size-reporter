@@ -59,4 +59,6 @@ let options = {
   cwd: process.cwd(),
 };
 
-assetSizeReporter(options);
+assetSizeReporter(options).then(({ exitCode }) => {
+  process.exit(exitCode);
+});
